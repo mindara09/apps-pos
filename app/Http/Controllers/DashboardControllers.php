@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transactions;
+use App\Models\StockItems;
 use App\Models\CashIn;
 use App\Models\CashOut;
 use Carbon\Carbon;
@@ -14,9 +15,9 @@ class DashboardControllers extends Controller
     public function index()
     {
     	// Filter month
-    	$month = Carbon::now();
+    	//$month = Carbon::now();
     	$submonth = Carbon::now()->subMonth();
-    	$month_now = Transactions::where('created_at','like', '%'.$month->format('Y-m').'%')->sum('total');
+    	$month_now = Transactions::where('created_at','like', '%'.Carbon::now()->format('Y-m').'%')->sum('total');
     	$month_before = Transactions::where('created_at', 'like', '%'.$submonth->format('Y-m').'%')->sum('total');
 
     	// Filter today
@@ -33,8 +34,27 @@ class DashboardControllers extends Controller
     	$item_co = CashOut::where('created_at','like','%'.$day->format('Y-m-d').'%')->get();
 
     	//dd($filter_month);
+
+    	// Sales Overview
+    	$month_3 = Transactions::where('created_at','like','%'.Carbon::now()->subMonth(2)->format('Y-m').'%')->sum('total');
+    	$month_4 = Transactions::where('created_at','like','%'.Carbon::now()->subMonth(3)->format('Y-m').'%')->sum('total');
+    	$month_5 = Transactions::where('created_at','like','%'.Carbon::now()->subMonth(4)->format('Y-m').'%')->sum('total');
+    	$month_6 = Transactions::where('created_at','like','%'.Carbon::now()->subMonth(5)->format('Y-m').'%')->sum('total');
+    	$month_7 = Transactions::where('created_at','like','%'.Carbon::now()->subMonth(6)->format('Y-m').'%')->sum('total');
+
+    	$month_sales = [
+    		'1' => ['name' => Carbon::now()->format('F Y'), 'total' => $month_now],
+    		'2' => ['name' => $submonth->format('F Y'), 'total' => $month_before],
+    		'3' => ['name' => Carbon::now()->subMonth(2)->format('F Y'), 'total' => $month_3],
+    		'4' => ['name' => Carbon::now()->subMonth(3)->format('F Y'), 'total' => $month_4],
+    		'5' => ['name' => Carbon::now()->subMonth(4)->format('F Y'), 'total' => $month_5],
+    		'6' => ['name' => Carbon::now()->subMonth(5)->format('F Y'), 'total' => $month_6],
+    		'7' => ['name' => Carbon::now()->subMonth(6)->format('F Y'), 'total' => $month_7]
+
+    	];
+
     	
-    	return view('dashboard.dashboard', compact('month_now','month_before','day_now','day_before','cash_in','cash_out','item_co'));
+    	return view('dashboard.dashboard', compact('month_now','month_before','day_now','day_before','cash_in','cash_out','item_co','month_sales'));
     }
 
     public function cashin(Request $request)
