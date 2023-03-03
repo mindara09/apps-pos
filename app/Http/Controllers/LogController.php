@@ -8,7 +8,7 @@ use App\Models\LogUsers;
 class LogController extends Controller
 {
     // insert log users
-    public function log($user_id, $action)
+    public static function log($user_id, $action)
     {
     	LogUsers::create([
             'user_id' => $user_id,
