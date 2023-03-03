@@ -57,11 +57,11 @@
 		        	@csrf
 		        	<div class="mb-3">
 					  <label for="nameItem" class="form-label">Name Item</label>
-					  <input type="text" class="form-control @error('name_item') is-invalid @enderror" id="nameItem" name="name_item">
+					  <input type="text" class="form-control" id="nameItem" name="name_item">
 					</div>
 					<div class="mb-3">
 						<label for="categoryItems" class="form-label">Category Item</label>
-						<select class="form-select @error('category_item') is-invalid @enderror" name="category_item">
+						<select class="form-select" name="category_item">
 							<option selected>Open this select menu</option>
 						  @forelse($category_items as $category_item)
 						  <option value="{{ $category_item->id }}" >{{ $category_item->name_category}}</option>
@@ -73,13 +73,13 @@
 					<div class="mb-3">
 						<label for="categoryOrder" class="form-label">Category Order</label>
 						<div class="form-check">
-						  <input class="form-check-input @error('category_order') is-invalid @enderror" type="radio" name="category_order" id="exampleRadios1" value="Online">
+						  <input class="form-check-input" type="radio" name="category_order" id="exampleRadios1" value="Online">
 						  <label class="form-check-label" for="exampleRadios1">
 						    Online
 						  </label>
 						</div>
 						<div class="form-check">
-						  <input class="form-check-input @error('category_order') is-invalid @enderror" type="radio" name="category_order" id="exampleRadios2" value="Offline">
+						  <input class="form-check-input" type="radio" name="category_order" id="exampleRadios2" value="Offline">
 						  <label class="form-check-label" for="exampleRadios2">
 						    Offline
 						  </label>
@@ -87,11 +87,11 @@
 					</div>
 					<div class="mb-3">
 					  <label for="quantity" class="form-label">Quantity</label>
-					  <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity">
+					  <input type="number" class="form-control" id="quantity" name="quantity">
 					</div>
 					<div class="mb-3">
 					  <label for="price" class="form-label">Price</label>
-					  <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price">
+					  <input type="number" class="form-control" id="price" name="price">
 					</div>
 		      </div>
 		      <div class="modal-footer">
